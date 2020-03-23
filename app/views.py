@@ -35,11 +35,16 @@ from django.core import serializers
 #     banner_list = serializers.serialize('json', Banner.objects.all())
 #     return MethodGetOrPost(banner_list).get(request)
 
-
+# 首页显示
 def index(request):
+    # 获取轮播图对象
     banner_list = Banner.objects.all()
+    # 获取文章对象
+    article_list = Article.objects.all().order_by('-pub_date')[:2]
+
     ctx = {
         "banner_list": banner_list,
+        "article_list": article_list,
     }
 
     return render(request, 'index.html', ctx)
