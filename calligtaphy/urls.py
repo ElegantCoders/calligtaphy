@@ -8,7 +8,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('app.urls', namespace='blog', app_name='blog')),
+    url(r'^', include('app.urls', namespace='app', app_name='app')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

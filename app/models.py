@@ -56,7 +56,7 @@ class Article(models.Model):
     content = RichTextUploadingField(default='', verbose_name='主体内容')
     pub_date = models.DateTimeField('发布日期', default=datetime.now())
     article_cover = models.ImageField('博客封面', upload_to='static/images/article_cover', default=None)
-    views = models.IntegerField('浏览量', default=0)
+    views = models.PositiveIntegerField('浏览量', default=0)
     is_delete = models.BooleanField('是否显示此文章', default=False)
 
     def __str__(self):

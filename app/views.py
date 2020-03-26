@@ -40,11 +40,28 @@ def index(request):
     # 获取轮播图对象
     banner_list = Banner.objects.all()
     # 获取文章对象
-    article_list = Article.objects.all().order_by('-pub_date')[:2]
+    article = Article.objects.all()
+    # 最新发布    进行时间倒序排序且只返回10条数据
+    article_publish_recently_list = article.order_by('-pub_date')[:10]
+    # 热门文章    进行筛选出最大浏览量的数据返回10条
+    popular_articles_list = article.order_by('-views')[:2]
 
     ctx = {
         "banner_list": banner_list,
-        "article_list": article_list,
+        "article_publish_recently_list": article_publish_recently_list,
+        "popular_articles_list": popular_articles_list,
     }
 
     return render(request, 'index.html', ctx)
+
+
+def article_detail(request, pid):
+    article = Article.objects.get(id=pid)
+    # 每点击一次浏览量+1
+    article.views += 1
+    article.save()
+
+    ctx = {
+        "article_list": article,
+    }
+    return render(request, 'details.html', ctx)

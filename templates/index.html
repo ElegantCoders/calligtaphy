@@ -184,14 +184,21 @@
                                                 <!-- 热门文章列表内容 -->
                                                 <div class="view">
                                                     <ul contenteditable="true" style="outline: 0;">
-                                                        <li>Lorem ipsum dolor sit amet</li>
-                                                        <li>Consectetur adipiscing elit</li>
-                                                        <li>Integer molestie lorem at massa</li>
-                                                        <li>Facilisis in pretium nisl aliquet</li>
-                                                        <li>Nulla volutpat aliquam velit</li>
-                                                        <li>Faucibus porta lacus fringilla vel</li>
-                                                        <li>Aenean sit amet erat nunc</li>
-                                                        <li>Eget porttitor lorem</li>
+                                                        {% for popular_articles in popular_articles_list %}
+                                                            <li><div style="display:inline-block;">
+                                                                <a href="{% url 'app:article_detail' popular_articles.id %}" target="_blank">
+                                                                {{ popular_articles.title }}
+                                                            </a>
+                                                            </div></li>
+                                                        {% endfor %}
+
+{#                                                        <li>Consectetur adipiscing elit</li>#}
+{#                                                        <li>Integer molestie lorem at massa</li>#}
+{#                                                        <li>Facilisis in pretium nisl aliquet</li>#}
+{#                                                        <li>Nulla volutpat aliquam velit</li>#}
+{#                                                        <li>Faucibus porta lacus fringilla vel</li>#}
+{#                                                        <li>Aenean sit amet erat nunc</li>#}
+{#                                                        <li>Eget porttitor lorem</li>#}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -208,8 +215,8 @@
                                                 <!-- 最新发布列表内容 -->
                                                 <div class="view">
                                                     <ul contenteditable="true" style="outline: 0;">
-                                                        {% for article in article_list %}
-                                                            <li>{{ article.title }}</li>
+                                                        {% for publish_recently in article_publish_recently_list %}
+                                                            <li>{{ publish_recently.title }}</li>
                                                         {% endfor %}
                                                     </ul>
                                                 </div>
