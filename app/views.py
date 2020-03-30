@@ -3,7 +3,8 @@ from .models import Banner, Article, Categoty, FriendlyLink
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-
+from django.db.models import Q
+from django.views.generic.base import View
 # Create your views here.
 
 '''
@@ -55,6 +56,7 @@ def index(request):
     return render(request, 'index.html', ctx)
 
 
+# 文章详情
 def article_detail(request, pid):
     article = Article.objects.get(id=pid)
     # 每点击一次浏览量+1
@@ -65,3 +67,26 @@ def article_detail(request, pid):
         "article_list": article,
     }
     return render(request, 'details.html', ctx)
+
+
+# 搜索功能
+@csrf_exempt
+def search(request):
+        kw = request.POST.get('keyword')
+        print(type(kw))
+        err_msg = '抱歉！未搜索到您要查询的信息。'
+        if kw is None:
+            kw = " "
+            article_list = Article.objects.filter(Q(title__icontains=kw) | Q(cont_synopsis__icontains=kw))
+            ctx = {
+                "article_list": article_list,
+                "err_msg": err_msg,
+            }
+            return render(request, 'list.html', ctx)
+
+        article_list = Article.objects.filter(Q(title__icontains=kw) | Q(cont_synopsis__icontains=kw))
+        ctx = {
+            "article_list": article_list,
+            "err_msg": err_msg,
+        }
+        return render(request, 'list.html', ctx)
