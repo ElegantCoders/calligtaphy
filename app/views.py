@@ -40,33 +40,25 @@ from django.views.generic.base import View
 def index(request):
     # 获取轮播图对象
     banner_list = Banner.objects.all()
+    # 获取文章分类对象  得到所有一级类目   返回前6个分类
+    categoty = Categoty.objects.filter(category_type=1)[:6]
     # 获取文章对象
     article = Article.objects.all()
+    # 获取友情链接对象
+    friendly_link = FriendlyLink.objects.all()
     # 最新发布    进行时间倒序排序且只返回10条数据
     article_publish_recently_list = article.order_by('-pub_date')[:10]
     # 热门文章    进行筛选出最大浏览量的数据返回10条
     popular_articles_list = article.order_by('-views')[:2]
 
     ctx = {
-        "banner_list": banner_list,
-        "article_publish_recently_list": article_publish_recently_list,
-        "popular_articles_list": popular_articles_list,
+        "categoty": categoty,  # 文章分类
+        "banner_list": banner_list,  # 轮播图
+        "article_publish_recently_list": article_publish_recently_list,  # 最新发布
+        "popular_articles_list": popular_articles_list,  # 热门文章
+        "friendly_link": friendly_link,  # 友情链接
     }
-
     return render(request, 'index.html', ctx)
-
-
-# 文章详情
-def article_detail(request, pid):
-    article = Article.objects.get(id=pid)
-    # 每点击一次浏览量+1
-    article.views += 1
-    article.save()
-
-    ctx = {
-        "article_list": article,
-    }
-    return render(request, 'details.html', ctx)
 
 
 # 搜索功能
@@ -90,3 +82,23 @@ def search(request):
             "err_msg": err_msg,
         }
         return render(request, 'list.html', ctx)
+
+
+# 文章详情
+def article_detail(request, pid):
+    article = Article.objects.get(id=pid)
+    # 每点击一次浏览量+1
+    article.views += 1
+    article.save()
+
+    ctx = {
+        "article_list": article,
+    }
+    return render(request, 'details.html', ctx)
+
+
+# 类别列表展示
+def categoty_article_list(request):
+    pass
+
+

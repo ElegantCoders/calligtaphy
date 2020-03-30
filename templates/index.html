@@ -8,6 +8,7 @@
     <!-- Le styles -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/layoutit.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/nav.css">
     <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../static/js/jquery.ui.touch-punch.min.js"></script>
@@ -60,37 +61,25 @@
                                                 <!-- 导航栏，分类 -->
                                                 <div class="view">
                                                     <nav class="navbar navbar-light" style="background-color: #d3b97e;">
+                                                    <div class="menu">
+                                                        <div class="center navbar-layoutit">
+                                                            <ul class="ul-list">
+                                                                <li>
+                                                                    <a href="#">一级导航</a>
+                                                                    <ol class="ol-list">
+                                                                        <li><a href="">下拉导航</a></li>
+                                                                        <li><a href="">下拉导航</a></li>
+                                                                        <li><a href="">下拉导航</a></li>
+                                                                        <li><a href="">下拉导航</a></li>
+                                                                    </ol>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                         <div class="container-fluid">
-                                                            <!-- Brand and toggle get grouped for better mobile display -->
-                                                            <div class="navbar-header">
-                                                                <button type="button" class="navbar-toggle collapsed"
-                                                                        data-toggle="collapse"
-                                                                        data-target="#bs-example-navbar-collapse-1"
-                                                                        aria-expanded="false">
-
-                                                                </button>
-                                                                <a class="navbar-brand" href="#">Brand</a>
-                                                            </div>
-
                                                             <!-- Collect the nav links, forms, and other content for toggling -->
                                                             <div class="collapse navbar-collapse"
                                                                  id="bs-example-navbar-collapse-1">
-
-                                                                <ul class="nav navbar-nav navbar-left">
-                                                                    <li class="dropdown">
-                                                                        <a href="#" class="dropdown-toggle"
-                                                                           data-toggle="dropdown" role="button"
-                                                                           aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                                                        <ul class="dropdown-menu">
-                                                                            <li><a href="#">Action</a></li>
-                                                                            <li><a href="#">Another action</a></li>
-                                                                            <li><a href="#">Something else here</a></li>
-                                                                            <li role="separator" class="divider"></li>
-                                                                            <li><a href="#">Separated link</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                </ul>
-
                                                                 <form method="post" action="{% url 'app:search' %}"
                                                                       class="navbar-form navbar-right">
                                                                     <div class="form-group">
@@ -132,6 +121,12 @@
                                         {% for banner in banner_list %}
                                             {% if banner.is_active %}
                                                 <div class="item active">
+
+
+                                                    <script>
+                                                        alert({{ banner.banner_cover }})
+
+                                                    </script>
                                                     <a href="{{ banner.link_url }}" target="_blank">
                                                         <img src="../media/{{ banner.banner_cover }}" alt="First slide">
                                                     </a>
