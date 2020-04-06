@@ -11,8 +11,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Categoty(models.Model):
     CATEGORY_TYPE = (
         (1, "一级类目"),
-        (2, "二级类目"),
-        (3, "三级类目")
+        (2, "二级类目")
     )
 
     name = models.CharField("分类名称", max_length=20, default='')
