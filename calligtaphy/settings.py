@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'calligtaphy',
         'USER': 'root',
-        'PASSWORD': 'jia21990',
+        'PASSWORD': 'NoPassword4Mysql',
         'HOST': 'localhost',
         'PORT': '3306',
     }

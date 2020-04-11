@@ -11,8 +11,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Categoty(models.Model):
     CATEGORY_TYPE = (
         (1, "一级类目"),
-        (2, "二级类目"),
-        (3, "三级类目")
+        (2, "二级类目")
     )
 
     name = models.CharField("分类名称", max_length=20, default='')
@@ -50,14 +49,15 @@ class Banner(models.Model):
 # 文章
 class Article(models.Model):
     category = models.ForeignKey(Categoty, verbose_name="书法分类", default=None)
-    title = models.CharField('标题', max_length=50)
+    title = models.CharField('标题', max_length=30)
     author = models.CharField('作者', max_length=10)
-    cont_synopsis = models.CharField('内容摘要', max_length=300)
-    content = RichTextUploadingField(default='', verbose_name='主体内容')
+    cont_synopsis = models.TextField('内容摘要（简述）', max_length=300)
+    content = RichTextUploadingField(default='', verbose_name='文章主体内容')
     pub_date = models.DateTimeField('发布日期', default=datetime.now())
-    article_cover = models.ImageField('博客封面', upload_to='static/images/article_cover', default=None)
+    article_cover = models.ImageField('文章封面', upload_to='static/images/article_cover', default=None)
     views = models.PositiveIntegerField('浏览量', default=0)
-    is_delete = models.BooleanField('是否显示此文章', default=False)
+    is_carousel = models.BooleanField('√显示！', default=False, help_text='轮播图是否显示此文章')
+    is_delete = models.BooleanField('√删除！', default=False, help_text='是否删除此文章，勾选删除，页面不显示此文章')
 
     def __str__(self):
         return self.title
@@ -81,4 +81,13 @@ class FriendlyLink(models.Model):
         verbose_name_plural = verbose_name
 
 
-
+# # ip地址
+# class Ip(models.Model):
+#     ip = models.CharField('ip地址', max_length=50, unique=True)
+#
+#
+# # ip和文章的外键关联
+# class IpArticle(models.Model):
+#     articel_foreignkey = models.ForeignKey(Article, verbose_name="文章外键")
+#     ip_foreignkey = models.ForeignKey(Ip, verbose_name="ip表外键")
+#     is_visit = models.BooleanField('是否访问', default=False)
