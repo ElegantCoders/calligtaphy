@@ -94,6 +94,19 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+# 云服务器数据库地址
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'calligtaphy',
+#         'USER': 'root',
+#         'PASSWORD': 'jia21990',
+#         'HOST': '106.12.25.47',
+#         'PORT': '3306',
+#     }
+# }
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

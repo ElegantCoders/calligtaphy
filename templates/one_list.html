@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一级分类文章列表页</title>
+</head>
+<body>
+<div>
+    {% if categoty_article_list %}
+        {% for categoty_article in categoty_article_list %}
+            {% for article in categoty_article %}
+                <p>{{ article.title }}</p>  <!-- 标题 -->
+                <p>{{ article.author }}</p>  <!-- 作者 -->
+                <p>{{ article.views }}</p>  <!-- 浏览量 -->
+                <p>{{ article.pub_date }}</p>  <!-- 发布时间 -->
+                <p>{{ article.cont_synopsis }}</p>  <!-- 内容摘要 -->
+                {% autoescape off %}  <!-- 主体内容 -->
+                {{ article.content }}
+                {% endautoescape %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        {% for err in err_msg %}
+            {{ err }}
+        {% endfor %}
+    {% endif %}
+</div>
+
+</body>
+</html>

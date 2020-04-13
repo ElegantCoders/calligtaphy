@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import Banner, Article, Categoty, FriendlyLink
-from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.db.models import Q
@@ -44,7 +43,7 @@ def index(request):
     # 获取文章分类对象  得到所有一级类目   返回前6个分类
     categoty1 = Categoty.objects.filter(category_type=1).order_by('-add_time')[:6]
     # 获取文章分类对象  得到所有二级类目   返回前10个分类
-    categoty2 = Categoty.objects.filter(category_type=2).order_by('-add_time')[:10]
+    categoty2 = Categoty.objects.filter(category_type=2).order_by('-add_time')
     # 获取文章对象
     article = Article.objects.all()
     # 获取友情链接对象   返回前10个分类
@@ -66,6 +65,8 @@ def index(request):
     return render(request, 'index.html', ctx)
 
 
+
+
 # 搜索功能
 @csrf_exempt
 def search(request):
@@ -75,10 +76,10 @@ def search(request):
     article_list = Article.objects.filter(Q(title__icontains=kw) | Q(cont_synopsis__icontains=kw))
     ctx = {
         "kw": kw,
-        "article_list": article_list,
+        "search_article_list": article_list,
         "err_msg": err_msg,
     }
-    return render(request, 'list.html', ctx)
+    return render(request, 'two_list.html', ctx)
 
 
 # 文章详情
@@ -97,14 +98,47 @@ def article_detail(request, pid):
     return render(request, 'details.html', ctx)
 
 
-# 类别  文章列表展示
+# 二级类别  文章列表展示
 def categoty_article_list(request, aid):
-    article_list = Article.objects.filter(category=aid)
-    print(article_list)
+    article_list = Article.objects.filter(category=aid)  # 获取二级分类下所有文字
+
     if article_list:
         ctx = {
-            "article_list": article_list,
+            "two_article_list": article_list,
+            "categoty_article_list": categoty_article_list,
         }
-        return render(request, 'list.html', ctx)
+        return render(request, 'two_list.html', ctx)
+    # elif categoty_article_list:
+    #     ctx = {
+    #         "categoty_article_list": categoty_article_list,
+    #     }
+    #     return render(request, 'one_list.html', ctx)
     else:
         return render(request, 'err404.html')
+
+
+# 一级分类  文章列表展示
+def one_categoty_article_list(request, aid):
+    one_categoty_article_list = Categoty.objects.filter(parent_category=aid).all()  # 获取一级分类下的所有二级分类关联的文章
+
+    categoty_article_list = []  # 所有二级分类关联的文章列表
+    for categoty_article in one_categoty_article_list:
+        categoty_article = Article.objects.filter(category=categoty_article.id)
+        categoty_article_list.append(categoty_article)
+    if categoty_article_list:
+        ctx = {
+            "categoty_article_list": categoty_article_list,
+        }
+        return render(request, 'one_list.html', ctx)
+    else:
+        return render(request, 'err404.html')
+
+
+def popular_articles_list(request):
+    popular_articles_list = Article.objects.all().order_by('-views')
+
+    ctx = {
+        "popular_articles_list": popular_articles_list,
+    }
+
+    return render(request, 'popular_list.html', ctx)

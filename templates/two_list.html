@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二级分类文章列表页</title>
+</head>
+<body>
+<div>
+    {% if kw == ''%}
+        {% for err in err_msg %}
+            {{ err }}
+        {% endfor %}
+    {% elif search_article_list %}
+        {% for search_article in search_article_list %}
+            <p>{{ article.title }}</p>  <!-- 标题 -->
+            <p>{{ article.author }}</p>  <!-- 作者 -->
+            <p>{{ article.views }}</p>  <!-- 浏览量 -->
+            <p>{{ search_article.pub_date }}</p>  <!-- 发布时间 -->
+            <p>{{ article.cont_synopsis }}</p>  <!-- 内容摘要 -->
+            {% autoescape off %}  <!-- 主体内容 -->
+            {{ article.content }}
+            {% endautoescape %}
+        {% endfor %}
+    {% elif two_article_list %}
+        {% for two_article in two_article_list %}
+            <p>{{ two_article.title }}</p>  <!-- 标题 -->
+            <p>{{ two_article.author }}</p>  <!-- 作者 -->
+            <p>{{ two_article.views }}</p>  <!-- 浏览量 -->
+            <p>{{ two_article.pub_date }}</p>  <!-- 发布时间 -->
+            <p>{{ two_article.cont_synopsis }}</p>  <!-- 内容摘要 -->
+            {% autoescape off %}  <!-- 主体内容 -->
+            {{ two_article.content }}
+            {% endautoescape %}
+        {% endfor %}
+    {% else %}
+        {% for err in err_msg %}
+            {{ err }}
+        {% endfor %}
+    {% endif %}
+</div>
+
+</body>
+</html>
