@@ -65,15 +65,13 @@ def index(request):
     return render(request, 'index.html', ctx)
 
 
-
-
 # 搜索功能
-@csrf_exempt
+@csrf_exempt  # 解决跨域问题
 def search(request):
-    kw = request.POST.get('keyword')
+    kw = request.POST.get('keyword')  # 得到前端from表单提交的内容
     err_msg = '抱歉！未搜索到您要查询的信息。'
 
-    article_list = Article.objects.filter(Q(title__icontains=kw) | Q(cont_synopsis__icontains=kw))
+    article_list = Article.objects.filter(Q(title__icontains=kw) | Q(cont_synopsis__icontains=kw))  # 模糊搜索  匹配 标题和概述内容
     ctx = {
         "kw": kw,
         "search_article_list": article_list,
@@ -119,13 +117,14 @@ def categoty_article_list(request, aid):
 
 # 一级分类  文章列表展示
 def one_categoty_article_list(request, aid):
-    one_categoty_article_list = Categoty.objects.filter(parent_category=aid).all()  # 获取一级分类下的所有二级分类关联的文章
+    two_categoty_list = Categoty.objects.filter(parent_category=aid).all()  # 获取一级分类下的所有二级分类
 
     categoty_article_list = []  # 所有二级分类关联的文章列表
-    for categoty_article in one_categoty_article_list:
-        categoty_article = Article.objects.filter(category=categoty_article.id)
-        categoty_article_list.append(categoty_article)
-    if categoty_article_list:
+    for two_categoty in two_categoty_list:  # 遍历 二级分类列表   得到每个二级分类对象
+        categoty_article = Article.objects.filter(category=two_categoty.id)  # 通过外键判断所关联的文章
+        categoty_article_list.append(categoty_article)  # 把相应的文章添加到 categoty_article_list  列表中
+
+    if categoty_article_list:  # 判断列表中有文章数据
         ctx = {
             "categoty_article_list": categoty_article_list,
         }
@@ -134,8 +133,9 @@ def one_categoty_article_list(request, aid):
         return render(request, 'err404.html')
 
 
+# 更多热门文章
 def popular_articles_list(request):
-    popular_articles_list = Article.objects.all().order_by('-views')
+    popular_articles_list = Article.objects.all().order_by('-views')  # 得到所有文章  按照浏览量倒序排序
 
     ctx = {
         "popular_articles_list": popular_articles_list,

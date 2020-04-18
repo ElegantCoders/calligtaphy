@@ -14,7 +14,7 @@
     <header>
         <div id="time"></div>
         <div class="logo">
-            <img src="../media/static/images/header_cover/1.png" alt="">
+            <img src="../media/static/images/header_cover/2.png" alt="">
         </div>
 
         <!-- 分类 -->
@@ -79,109 +79,16 @@
                         {% for categoty in categoty2 %}
                             {% if popular_articles.category_id == categoty.id %}
                                 <div style="display: flex;justify-content: space-between;margin-top: 10px;">
-                                    <div style="color: #bf3131;font-size: 12px;">标签：<span
+                                    <div style="color: #bf3131;font-size: 12px;">标签：<span onclick="window.open('{% url "app:categoty_article_list" categoty.id %}')"
                                             style="color: #a59ea3;cursor: pointer;">{{ categoty.name }}</span></div>
                                     <div style="color: #959495;font-size: 12px;">{{ popular_articles.pub_date }}</div>
                                 </div>
                             {% endif %}
-                        
                         {% endfor %}
-                        
 
                     </div>
                 </div>
             {% endfor %}
-
-{#            <div class="box-list">#}
-{#                <div class="box-img"><img#}
-{#                        src="https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00524-1687.jpg"#}
-{#                        alt=""></div>#}
-{#                <div class="box-content">#}
-{#                    <h4 style="color: #000;margin: 0 10px 10px 0;">美在新时代--中国美术馆藏书法精品展作品选刊</h4>#}
-{#                    <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">美在新时代--中国美术馆藏书法精品展#}
-{#                        20世纪以来书法大师名家相聚中国美术馆，书香墨色中感受时代之美！ 齐白石书法：寿高、花好联，144cm×39cm，中国美术馆藏。 于右任行书信札27.5cm×20.5cm×5，中国美术馆藏。#}
-{#                        高二适致陶白手札... <span style="color: #bf3131;cursor: pointer;">阅读全文>></span></div>#}
-{#                    <div style="display: flex;justify-content: space-between;margin-top: 10px;">#}
-{#                        <div style="color: #bf3131;font-size: 12px;">标签：<span style="color: #a59ea3;">书法名家</span></div>#}
-{#                        <div style="color: #959495;font-size: 12px;">2018-1-28 8:29:42</div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box-list">#}
-{#                <div class="box-img"><img#}
-{#                        src="https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00524-1687.jpg"#}
-{#                        alt=""></div>#}
-{#                <div class="box-content">#}
-{#                    <h4 style="color: #000;margin: 0 10px 10px 0;">美在新时代--中国美术馆藏书法精品展作品选刊</h4>#}
-{#                    <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">美在新时代--中国美术馆藏书法精品展#}
-{#                        20世纪以来书法大师名家相聚中国美术馆，书香墨色中感受时代之美！ 齐白石书法：寿高、花好联，144cm×39cm，中国美术馆藏。 于右任行书信札27.5cm×20.5cm×5，中国美术馆藏。#}
-{#                        高二适致陶白手札... <span style="color: #bf3131;cursor: pointer;">阅读全文>></span></div>#}
-{#                    <div style="display: flex;justify-content: space-between;margin-top: 10px;">#}
-{#                        <div style="color: #bf3131;font-size: 12px;">标签：<span style="color: #a59ea3;">书法名家</span></div>#}
-{#                        <div style="color: #959495;font-size: 12px;">2018-1-28 8:29:42</div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box-list">#}
-{#                <div class="box-img"><img#}
-{#                        src="https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00524-1687.jpg"#}
-{#                        alt=""></div>#}
-{#                <div class="box-content">#}
-{#                    <h4 style="color: #000;margin: 0 10px 10px 0;">美在新时代--中国美术馆藏书法精品展作品选刊</h4>#}
-{#                    <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">美在新时代--中国美术馆藏书法精品展#}
-{#                        20世纪以来书法大师名家相聚中国美术馆，书香墨色中感受时代之美！ 齐白石书法：寿高、花好联，144cm×39cm，中国美术馆藏。 于右任行书信札27.5cm×20.5cm×5，中国美术馆藏。#}
-{#                        高二适致陶白手札... <span style="color: #bf3131;cursor: pointer;">阅读全文>></span></div>#}
-{#                    <div style="display: flex;justify-content: space-between;margin-top: 10px;">#}
-{#                        <div style="color: #bf3131;font-size: 12px;">标签：<span style="color: #a59ea3;">书法名家</span></div>#}
-{#                        <div style="color: #959495;font-size: 12px;">2018-1-28 8:29:42</div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box-list">#}
-{#                <div class="box-img"><img#}
-{#                        src="https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00524-1687.jpg"#}
-{#                        alt=""></div>#}
-{#                <div class="box-content">#}
-{#                    <h4 style="color: #000;margin: 0 10px 10px 0;">美在新时代--中国美术馆藏书法精品展作品选刊</h4>#}
-{#                    <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">美在新时代--中国美术馆藏书法精品展#}
-{#                        20世纪以来书法大师名家相聚中国美术馆，书香墨色中感受时代之美！ 齐白石书法：寿高、花好联，144cm×39cm，中国美术馆藏。 于右任行书信札27.5cm×20.5cm×5，中国美术馆藏。#}
-{#                        高二适致陶白手札... <span style="color: #bf3131;cursor: pointer;">阅读全文>></span></div>#}
-{#                    <div style="display: flex;justify-content: space-between;margin-top: 10px;">#}
-{#                        <div style="color: #bf3131;font-size: 12px;">标签：<span style="color: #a59ea3;">书法名家</span></div>#}
-{#                        <div style="color: #959495;font-size: 12px;">2018-1-28 8:29:42</div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box-list">#}
-{#                <div class="box-img"><img#}
-{#                        src="https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00524-1687.jpg"#}
-{#                        alt=""></div>#}
-{#                <div class="box-content">#}
-{#                    <h4 style="color: #000;margin: 0 10px 10px 0;">美在新时代--中国美术馆藏书法精品展作品选刊</h4>#}
-{#                    <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">美在新时代--中国美术馆藏书法精品展#}
-{#                        20世纪以来书法大师名家相聚中国美术馆，书香墨色中感受时代之美！ 齐白石书法：寿高、花好联，144cm×39cm，中国美术馆藏。 于右任行书信札27.5cm×20.5cm×5，中国美术馆藏。#}
-{#                        高二适致陶白手札... <span style="color: #bf3131;cursor: pointer;">阅读全文>></span></div>#}
-{#                    <div style="display: flex;justify-content: space-between;margin-top: 10px;">#}
-{#                        <div style="color: #bf3131;font-size: 12px;">标签：<span style="color: #a59ea3;">书法名家</span></div>#}
-{#                        <div style="color: #959495;font-size: 12px;">2018-1-28 8:29:42</div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box-list">#}
-{#                <div class="box-img"><img#}
-{#                        src="https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00524-1687.jpg"#}
-{#                        alt=""></div>#}
-{#                <div class="box-content">#}
-{#                    <h4 style="color: #000;margin: 0 10px 10px 0;cursor: pointer;">美在新时代--中国美术馆藏书法精品展作品选刊</h4>#}
-{#                    <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">美在新时代--中国美术馆藏书法精品展#}
-{#                        20世纪以来书法大师名家相聚中国美术馆，书香墨色中感受时代之美！ 齐白石书法：寿高、花好联，144cm×39cm，中国美术馆藏。 于右任行书信札27.5cm×20.5cm×5，中国美术馆藏。#}
-{#                        高二适致陶白手札... <span style="color: #bf3131;cursor: pointer;">阅读全文>></span></div>#}
-{#                    <div style="display: flex;justify-content: space-between;margin-top: 10px;">#}
-{#                        <div style="color: #bf3131;font-size: 12px;">标签：<span style="color: #a59ea3;">书法名家</span></div>#}
-{#                        <div style="color: #959495;font-size: 12px;">2018-1-28 8:29:42</div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
 
         </div>
         <div class="content-nav">
@@ -191,7 +98,13 @@
                 {% for article_publish_recently in article_publish_recently_list %}
                     <!-- 最新发布名称 -->
                     <div class="item">
-                        <span style="color: #bf3131;">[毛笔书法]</span>
+                        {% for categoty in categoty2 %}
+                            {% if article_publish_recently.category_id == categoty.id %}
+                                <span style="color: #bf3131;" onclick="window.open('{% url "app:categoty_article_list" categoty.id %}')">[{{ categoty.name }}]</span>
+                            {% endif %}
+                        {% endfor %}
+
+
                         <span onclick="window.open( '{% url "app:article_detail" article_publish_recently.id %}', '_blank ' )">{{ article_publish_recently.title }}</span>
                     </div>
 
