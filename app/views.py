@@ -36,20 +36,36 @@ from django.views.generic.base import View
 #     banner_list = serializers.serialize('json', Banner.objects.all())
 #     return MethodGetOrPost(banner_list).get(request)
 
-# 首页显示
-def index(request):
-    # 获取轮播图对象
-    banner_list = Banner.objects.all()
+def index_tool():
+    '''
+    相同数据  工具函数
+    :return: index_tool[0-4]  通过掉用函数索引取值
+    '''
     # 获取文章分类对象  得到所有一级类目   返回前6个分类
     categoty1 = Categoty.objects.filter(category_type=1).order_by('-add_time')[:6]
     # 获取文章分类对象  得到所有二级类目   返回前10个分类
     categoty2 = Categoty.objects.filter(category_type=2).order_by('-add_time')
-    # 获取文章对象
-    article = Article.objects.all()
     # 获取友情链接对象   返回前10个分类
     friendly_link_list = FriendlyLink.objects.all().order_by('-add_time')[:10]
+    # 获取文章对象
+    article = Article.objects.all()
     # 最新发布    进行时间倒序排序且只返回10条数据
     article_publish_recently_list = article.order_by('-pub_date')[:10]
+    return categoty1, categoty2, friendly_link_list, article, article_publish_recently_list
+
+
+# 首页显示
+def index(request):
+    '''
+    banner_list                         获取轮播图对象
+    categoty1                           得到所有一级类目返回前6个分类
+    categoty2                           得到所有二级类目全部返回
+    friendly_link_list                  获取友情链接对象   返回前10个分类
+    article                             获取文章对象
+    article_publish_recently_list       最新发布    进行时间倒序排序且只返回10条数据
+    '''
+    banner_list, categoty1, categoty2, friendly_link_list, article, article_publish_recently_list = Banner.objects.all(), index_tool()[0], index_tool()[1], index_tool()[2], index_tool()[3], index_tool()[4]
+
     # 热门文章    进行筛选出最大浏览量的数据返回10条
     popular_articles_list = article.order_by('-views')[:10]
 
@@ -82,7 +98,20 @@ def search(request):
 
 # 文章详情
 def article_detail(request, pid):
-    article = Article.objects.get(id=pid)
+    '''
+    article                             得到对应的文章内容
+    categoty1                           得到所有一级类目返回前6个分类
+    categoty2                           得到所有二级类目全部返回
+    friendly_link_list                  获取友情链接对象   返回前10个分类
+    article_publish_recently_list       最新发布    进行时间倒序排序且只返回10条数据
+
+    :param request:
+    :param pid: 前端页面点击的文章pid
+    :return:
+    '''
+    article, categoty1, categoty2, friendly_link_list, article_publish_recently_list = Article.objects.get(id=pid), \
+                                                                                index_tool()[0], index_tool()[1], \
+                                                                                index_tool()[2], index_tool()[4]
     # 每点击一次浏览量+1
     article.views += 1
     article.save()
@@ -91,7 +120,11 @@ def article_detail(request, pid):
     获取当前访问的ip   对比数据库   有  查IpArticle.is_visit=0  浏览量+1  IpArticle.is_visit=Ture
     '''
     ctx = {
-        "article_list": article,
+        "article": article,
+        "categoty1": categoty1,  # 分类一级类目
+        "categoty2": categoty2,  # 文章分类二级类目
+        "article_publish_recently_list": article_publish_recently_list,  # 最新发布
+        "friendly_link_list": friendly_link_list,  # 友情链接
     }
     return render(request, 'details.html', ctx)
 
@@ -127,6 +160,10 @@ def one_categoty_article_list(request, aid):
     if categoty_article_list:  # 判断列表中有文章数据
         ctx = {
             "categoty_article_list": categoty_article_list,
+            "categoty1": index_tool()[0],
+            "categoty2": index_tool()[1],
+            "friendly_link_list": index_tool()[2],
+            "article_publish_recently_list": index_tool()[4],
         }
         return render(request, 'one_list.html', ctx)
     else:
@@ -135,10 +172,24 @@ def one_categoty_article_list(request, aid):
 
 # 更多热门文章
 def popular_articles_list(request):
-    popular_articles_list = Article.objects.all().order_by('-views')  # 得到所有文章  按照浏览量倒序排序
+    '''
+    popular_articles_list               得到所有文章  按照浏览量倒序排序
+    categoty1                           得到所有一级类目返回前6个分类
+    categoty2                           得到所有二级类目全部返回
+    friendly_link_list                  获取友情链接对象   返回前10个分类
+    article_publish_recently_list       最新发布    进行时间倒序排序且只返回10条数据
 
+    :param request:
+    :return:
+    '''
+    popular_articles_list, categoty1, categoty2, friendly_link_list, article_publish_recently_list = index_tool()[3].order_by('-views'), index_tool()[0], index_tool()[1], index_tool()[2], index_tool()[4]
     ctx = {
-        "popular_articles_list": popular_articles_list,
+        "popular_articles_list": popular_articles_list,  # 所有的热门文章
+        "categoty1": categoty1,  # 分类一级类目
+        "categoty2": categoty2,  # 文章分类二级类目
+        "article_publish_recently_list": article_publish_recently_list,  # 最新发布
+        "friendly_link_list": friendly_link_list,  # 友情链接
     }
 
     return render(request, 'popular_list.html', ctx)
+

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>书法欣赏-高清晰书法作品图片欣赏网</title>
     <link rel="stylesheet" href="/static/css/index.css">
-    <link href="/static/css/swiper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/derails.css">
+    <link rel="stylesheet" href="/static/css/swiper.min.css">
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/swiper.min.js"></script>
 </head>
@@ -14,7 +15,7 @@
     <header>
         <div id="time"></div>
         <div class="logo">
-            <img src="../media/static/images/header_cover/2.png" alt="">
+            <img src="/media/static/images/header_cover/2.png" alt="">
         </div>
 
         <!-- 分类 -->
@@ -28,34 +29,41 @@
                     <a href="{% url 'app:one_categoty_article_list' categoty1.id %}" target="_blank"><div>{{ categoty1.name }}</div></a>
                     {% for categoty2 in categoty2 %}
                         {% if categoty2.parent_category_id == categoty1.id %}
-                            <a href="{% url 'app:categoty_article_list' categoty2.id %}" target="_blank"><div>{{ categoty2.name }}</div></a>
+                                <a href="{% url 'app:categoty_article_list' categoty2.id %}" target="_blank"><div>{{ categoty2.name }}</div></a>
                         {% endif %}
                     {% endfor %}
                 </div>
             {% endfor %}
+
         </div>
 
-        <!-- 搜索 -->
-        <form action="{% url 'app:search' %}" method="post" class="form" target="_blank">
-            <input type="text" name="keyword">
-            <input type="submit" value="搜索">
-        </form>
+        <div>
+            <!-- 搜索 -->
+            <form action="{% url 'app:search' %}" method="post" class="form" target="_blank">
+                <input type="text" placeholder="请输入关键字" name="keyword">
+                <input type="submit" value="搜索">
+            </form>
+        </div>
+        {% block del_banner %}
+            <!-- 轮播图 -->
+            <div class="swiper-container" style="margin-top: 10px;">
+                <div class="swiper-wrapper">
+                    {% for banner in banner_list %}
+                        <div class="swiper-slide"><img src="/media/{{ banner.banner_cover }}" alt=""></div>
+                    {% endfor %}
+                </div>
 
-        <!-- 轮播图 -->
-        <div class="swiper-container" style="margin-top: 10px;">
-            <div class="swiper-wrapper">
-                {% for banner in banner_list %}
-                    <div class="swiper-slide"><img src="/media/{{ banner.banner_cover }}" alt=""></div>
-                {% endfor %}
+                <div class="swiper-pagination"></div>
             </div>
+        {% endblock del_banner %}
 
-            <div class="swiper-pagination"></div>
-        </div>
     </header>
 
 
     <div class="content">
         <div class="content-box">
+
+        {% block del_popular %}
             <div class="content-head">
                 <div>
                     <span style="display: inline-block;height: 12px; width: 2px;background: red;margin-right: 6px;"></span>
@@ -89,6 +97,7 @@
                     </div>
                 </div>
             {% endfor %}
+        {% endblock del_popular %}
 
         </div>
         <div class="content-nav">
