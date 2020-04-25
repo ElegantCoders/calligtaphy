@@ -1,34 +1,69 @@
-{% extends "index.html"%}
+{% extends "index.html" %}
 
 {% block del_popular %}
-        {% for categoty_article in categoty_article_list %}
-            {% for article in categoty_article %}
-
-
-                <div class="box-list" style="border: 1px solid #ccc; margin-left: 5px; padding: 10px 0 10px 5px;">
-                    <div class="box-img" onclick="window.open( '{% url "app:article_detail" article.id %}', '_blank ' )" style="padding: 1px; border:1px solid #ccc;">
-                        <img src="/media/{{ article.article_cover }}" alt="">
-                    </div>
-                    <div class="box-content">
-                        <h4 style="color: #000;margin: 0 10px 10px 0;cursor: pointer;" onclick="window.open( '{% url "app:article_detail" article.id %}', '_blank ' )">
-                            {{ article.title }}</h4>
-                        <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">
-                            {{ article.cont_synopsis }}...
-                            <span style="color: #bf3131;cursor: pointer;" onclick="window.open( '{% url "app:article_detail" article.id %}', '_blank ' )">阅读全文>></span>
-                        </div>
-                        {% for categoty in categoty2 %}
-                            {% if article.category_id == categoty.id %}
-                                <div style="display: flex;justify-content: space-between;margin-top: 10px;">
-                                    <div style="color: #bf3131;font-size: 12px;">标签：<span onclick="window.open('{% url "app:categoty_article_list" categoty.id %}')"
-                                            style="color: #a59ea3;cursor: pointer;">{{ categoty.name }}</span></div>
-                                    <div style="color: #959495;font-size: 12px;">{{ article.pub_date }}</div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-
-                    </div>
+    {% for article in categoty_article_list %}
+        <div class="box-list" style="border: 1px solid #ccc; margin-left: 5px; padding: 10px 0 10px 5px;">
+            <div class="box-img" onclick="window.open( '{% url "app:article_detail" article.id %}', '_blank ' )"
+                 style="padding: 1px; border:1px solid #ccc;">
+                <img src="/media/{{ article.article_cover }}" alt="">
+            </div>
+            <div class="box-content">
+                <h4 style="color: #000;margin: 0 10px 10px 0;cursor: pointer;"
+                    onclick="window.open( '{% url "app:article_detail" article.id %}', '_blank ' )">
+                    {{ article.title }}</h4>
+                <div style="text-indent: 2em;font-size: 12px;color: #484748;line-height: 21px;">
+                    {{ article.cont_synopsis }}...
+                    <span style="color: #bf3131;cursor: pointer;"
+                          onclick="window.open( '{% url "app:article_detail" article.id %}', '_blank ' )">阅读全文>></span>
                 </div>
-            {% endfor %}
-        {% endfor %}
+                {% for categoty in categoty2 %}
+                    {% if article.category_id == categoty.id %}
+                        <div style="display: flex;justify-content: space-between;margin-top: 10px;">
+                            <div style="color: #bf3131;font-size: 12px;">标签：<span
+                                    onclick="window.open('{% url "app:categoty_article_list" categoty.id %}')"
+                                    style="color: #a59ea3;cursor: pointer;">{{ categoty.name }}</span></div>
+                            <div style="color: #959495;font-size: 12px;">{{ article.pub_date }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 
+
+    <nav aria-label="Page navigation">
+        <!-- 如果有上一页就显示上一页箭头按钮，且修改连接地址 -->
+        <ul class="pagination">
+            {% if categoty_article_list.has_previous %}
+                <li>
+                    <a href="?page={{ categoty_article_list.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+        <!-- 生成导航标签码 -->
+            {% for pg in categoty_article_list.paginator.page_range %}
+                {% if categoty_article_list.number == pg %}
+                    <li>
+                        <a href="?page={{ pg }}"><span style="color: #bf3131">{{ pg }}</span></a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="?page={{ pg }}"><span>{{ pg }}</span></a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+
+        <!-- 如果有下一页就显示下一页箭头按钮，且修改连接地址 -->
+            {% if categoty_article_list.has_next %}
+                <li>
+                    <a href="?page={{ categoty_article_list.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

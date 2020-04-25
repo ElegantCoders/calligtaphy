@@ -83,28 +83,28 @@ WSGI_APPLICATION = 'calligtaphy.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'calligtaphy',
-        'USER': 'root',
-        'PASSWORD': 'NoPassword4Mysql',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-# 云服务器数据库地址
+#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'calligtaphy',
 #         'USER': 'root',
 #         'PASSWORD': 'jia21990',
-#         'HOST': '106.12.25.47',
+#         'HOST': 'localhost',
 #         'PORT': '3306',
 #     }
 # }
+# 云服务器数据库地址
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'calligtaphy',
+        'USER': 'root',
+        'PASSWORD': 'jia21990',
+        'HOST': '106.12.25.47',
+        'PORT': '3306',
+    }
+}
 
 
 

@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.db.models import Q
 from django.views.generic.base import View
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # Create your views here.
 
@@ -92,8 +93,12 @@ def search(request):
         "kw": kw,
         "search_article_list": article_list,
         "err_msg": err_msg,
+        "categoty1": index_tool()[0],
+        "categoty2": index_tool()[1],
+        "friendly_link_list": index_tool()[2],
+        "article_publish_recently_list": index_tool()[4],
     }
-    return render(request, 'two_list.html', ctx)
+    return render(request, 'search_list.html', ctx)
 
 
 # 文章详情
@@ -136,35 +141,56 @@ def categoty_article_list(request, aid):
     if article_list:
         ctx = {
             "two_article_list": article_list,
-            "categoty_article_list": categoty_article_list,
+            "categoty1": index_tool()[0],
+            "categoty2": index_tool()[1],
+            "friendly_link_list": index_tool()[2],
+            "article_publish_recently_list": index_tool()[4],
         }
         return render(request, 'two_list.html', ctx)
-    # elif categoty_article_list:
-    #     ctx = {
-    #         "categoty_article_list": categoty_article_list,
-    #     }
-    #     return render(request, 'one_list.html', ctx)
     else:
         return render(request, 'err404.html')
 
 
 # 一级分类  文章列表展示
 def one_categoty_article_list(request, aid):
-    two_categoty_list = Categoty.objects.filter(parent_category=aid).all()  # 获取一级分类下的所有二级分类
+    one_categoty_list = Categoty.objects.filter(parent_category=aid).all()  # 获取一级分类下的所有二级分类
 
     categoty_article_list = []  # 所有二级分类关联的文章列表
-    for two_categoty in two_categoty_list:  # 遍历 二级分类列表   得到每个二级分类对象
-        categoty_article = Article.objects.filter(category=two_categoty.id)  # 通过外键判断所关联的文章
-        categoty_article_list.append(categoty_article)  # 把相应的文章添加到 categoty_article_list  列表中
+    for two_categoty in one_categoty_list:  # 遍历 列表   得到每个二级分类列表
+        two_categoty_article = Article.objects.filter(category=two_categoty.id)  # 通过外键判断所关联的文章   根据分类得到相应文章对象列表
+        # print(two_categoty_article)
+        for two_article in two_categoty_article:  #
+            categoty_article_list.append(two_article)  # 把相应的文章添加到 categoty_article_list  列表中
 
+    print(categoty_article_list)
     if categoty_article_list:  # 判断列表中有文章数据
-        ctx = {
-            "categoty_article_list": categoty_article_list,
-            "categoty1": index_tool()[0],
-            "categoty2": index_tool()[1],
-            "friendly_link_list": index_tool()[2],
-            "article_publish_recently_list": index_tool()[4],
-        }
+        # 格式Paginator(categoty_article_list,10,2)每页10条数据少于2条合并到第一页
+        paginator = Paginator(categoty_article_list, 10,)  # 每页10条数据
+        page = request.GET.get('page')  # 接受网页中page值
+        try:
+            ctx = {
+                "categoty_article_list": paginator.page(page),
+                "categoty1": index_tool()[0],
+                "categoty2": index_tool()[1],
+                "friendly_link_list": index_tool()[2],
+                "article_publish_recently_list": index_tool()[4],
+            }
+        except PageNotAnInteger:
+            ctx = {
+                "categoty_article_list": paginator.page(1),
+                "categoty1": index_tool()[0],
+                "categoty2": index_tool()[1],
+                "friendly_link_list": index_tool()[2],
+                "article_publish_recently_list": index_tool()[4],
+            }
+        except EmptyPage:
+            ctx = {
+                "categoty_article_list": paginator.page(paginator.num_pages),
+                "categoty1": index_tool()[0],
+                "categoty2": index_tool()[1],
+                "friendly_link_list": index_tool()[2],
+                "article_publish_recently_list": index_tool()[4],
+            }
         return render(request, 'one_list.html', ctx)
     else:
         return render(request, 'err404.html')
