@@ -1,0 +1,243 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height:100%;
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+body{
+    min-width: 1000px;
+    width:1000px;
+    margin: 0 auto;
+    height: auto;
+}
+
+html{
+    background: url('/static/images/bg2.jpg') repeat-x;
+    background-size: 100%;
+}
+
+body{
+    background: white;
+}
+
+#time{
+    height: 26px;
+    line-height: 26px;
+    color: #848484;
+    font-size: 12px;
+    background-color: #F0F0F0;
+    border: 1px solid #D4D4D4;
+    text-indent: 1em;
+}
+
+header {
+    position: relative;
+}
+
+header .logo{
+    height: 90px;
+}
+
+header img{
+    height: 100%;
+}
+
+header .topnav{
+    width:100%;
+    height:36px;
+    background-color: #AE145D;
+    padding-left: 3px;
+    position: absolute;
+    box-sizing: border-box;
+}
+header .topnav .topnav-son{
+    overflow: hidden;
+    position:relative;
+    float: left;
+    width:142px;
+    z-index: 9999999;
+    height: 36px;
+    max-height:36px;
+    transition:max-height 2s;
+    -moz-transition:max-height 2s; /* Firefox 4 */
+    -webkit-transition:max-height 2s; /* Safari and Chrome */
+    -o-transition:max-height 2s; /* Opera */
+}
+
+header .topnav .topnav-son a{
+    color: white;
+    text-decoration:none;
+}
+
+header .topnav .topnav-son:hover{
+    background: #AE145D;
+    height:auto;
+    max-height: 600px;
+    transition:max-height 2s;
+    -moz-transition:max-height 2s; /* Firefox 4 */
+    -webkit-transition:max-height 2s; /* Safari and Chrome */
+    -o-transition:max-height 2s; /* Opera */
+}
+
+header .topnav .topnav-son div{
+    height:28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color:white;
+    margin: 4px 0;
+    z-index: 9999;
+
+}
+
+header .topnav .topnav-son div:nth-child(1){
+    height:28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color:white;
+    margin: 4px 0;
+    border-right: 1px solid #C43777;
+}
+
+header .topnav .topnav-son div:hover{
+    background-color:#8a2855;
+    cursor: pointer;
+}
+
+header .topnav .topnav-son:last-child div:nth-child(1){
+    border: 0;
+}
+
+
+
+
+
+header .form{
+    margin-top: 36px;
+    text-align: right;
+    padding: 5px;
+}
+
+
+header.swiper-container {
+    width: 100%;
+    height: auto;
+    padding:90px 0;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+header .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    height: 200px;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    transition-property:all;
+  }
+header #progressEffect{
+    position: absolute;
+    z-index: 10;
+    top: 20px;
+    left: 20px;
+}
+
+header .swiper-container img{
+    width:117px;
+    height: 100%;
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.content .content-head {
+    display: flex;
+    height:26px;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #cc0066;
+    align-items: center;
+    padding: 10px 10px 0 10px;
+}
+
+.content .content-box {
+    width: 750px;
+    height: 100%;
+    border-right:1px solid #f0f0f0;
+}
+
+.content .content-box .box-list {
+    display: flex;
+    height: 120px;
+    padding: 10px 0 10px 10px;
+}
+
+.content-box .box-list .box-img{
+    width: 100px;
+    height: 120px;
+    min-width: 100px;
+}
+.content-box .box-list .box-img img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.content-box .box-list .box-content{
+    padding: 0 10px;
+    width: 100%;
+}
+
+.content .content-nav{
+    padding: 10px 0;
+    width: 250px;
+}
+
+.content .content-nav .nav-item {
+    padding-bottom: 14px;
+}
+
+.content .content-nav .nav-item .head{
+    padding: 4px 10px 6px;
+    color: #cc0066;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #f0f0f0;
+    width:100%;
+    box-sizing: border-box;
+}
+.content .content-nav .nav-item .item{
+    padding: 10px 10px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

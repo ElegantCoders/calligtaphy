@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <p>{{ article_list.title }}</p>
-    <div>
-     <img src="{{ article_list.article_cover }}" alt="256*60" style="width: 256px; height: 60px;">
+{% extends "index.html"%}
+
+{% block del_popular %}
+    <div class="center">
+        <h1 class="details-title">{{ article.title }}</h1>
+        <div class="details-bar">
+            <p><span>发布时间：</span>{{ article.pub_date }}</p>
+            <p><span>作者：</span>{{ article.author }}</p>
+            <p><span>阅读：</span>{{ article.views }}</p>
+        </div>
+        <div style="border-bottom: 1px dashed #ccc; margin: 0 10px;"></div>
+
+        <div class="details-note">
+            <span style="font-weight: bold;">内容摘要：</span>
+            <span>
+                {{ article.cont_synopsis }}
+            </span>
+        </div>
+
+        <div style="margin: 8px;">
+            {% autoescape off %}
+            {{ article.content }}
+            {% endautoescape %}
+
+        </div>
     </div>
-    <p>{{ article_list.author }}</p>
-    <p>{{ article_list.views }}</p>
-    <p>{{ article_list.pub_date }}</p>
-    <p>{{ article_list.cont_synopsis }}</p>
-    <p>{{ article_list.content }}</p>
-</body>
-</html>
+
+
+{% endblock %}

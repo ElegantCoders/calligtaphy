@@ -6,7 +6,7 @@ from app.models import *
 
 class ArticleAdmin(admin.ModelAdmin):
     '''设置列表可显示的字段'''
-    list_display = ('category', 'title', 'author', 'pub_date', 'views',)
+    list_display = ('category', 'title', 'author', 'pub_date', 'views', 'is_carousel', 'is_delete',)
 
     '''设置过滤选项'''
     list_filter = ('author',)
